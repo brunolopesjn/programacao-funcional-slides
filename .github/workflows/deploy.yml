@@ -25,19 +25,14 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - name: Setup @antfu/ni
-        run: npm i -g @antfu/ni
-
       - name: Install dependencies
-        run: nci
+        run: npm install
 
       - name: Build
         run: npx slidev build --base /${{github.event.repository.name}}/
 
-      - name: Debug build output
-        run: |
-          grep -o 'history:[A-Za-z]*(`[^`]*`)' dist/assets/index-*.js
-          head -3 dist/index.html
+      - name: Create SPA fallback
+        run: cp dist/index.html dist/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
