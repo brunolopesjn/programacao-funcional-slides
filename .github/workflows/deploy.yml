@@ -32,7 +32,12 @@ jobs:
         run: nci
 
       - name: Build
-        run: nr build --base /${{github.event.repository.name}}/
+        run: npx slidev build --base /${{github.event.repository.name}}/
+
+      - name: Debug build output
+        run: |
+          grep -o 'history:[A-Za-z]*(`[^`]*`)' dist/assets/index-*.js
+          head -3 dist/index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
